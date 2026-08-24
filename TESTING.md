@@ -6,17 +6,17 @@ TPC-DS) using MD5 checksums committed to the repo.
 
 The conformance suites live next to the unified CLI crate:
 
-- TPC-H: [tpcgen-cli/scripts/tpch/](tpcgen-cli/scripts/tpch/) —
+- TPC-H: [benchseed-cli/scripts/tpch/](benchseed-cli/scripts/tpch/) —
   `compare-all-tables.sh` checks output against
-  `tpcgen-cli/tests/fixtures/tpch/scale-N/MD5SUMS` (generated from C `dbgen`
+  `benchseed-cli/tests/fixtures/tpch/scale-N/MD5SUMS` (generated from C `dbgen`
   by `generate-fixtures.sh`, which requires docker or podman).
-- TPC-DS: [tpcgen-cli/scripts/tpcds/](tpcgen-cli/scripts/tpcds/) — see its
-  [README](tpcgen-cli/scripts/tpcds/README.md) for the Trino (`--compat
+- TPC-DS: [benchseed-cli/scripts/tpcds/](benchseed-cli/scripts/tpcds/) — see its
+  [README](benchseed-cli/scripts/tpcds/README.md) for the Trino (`--compat
   trino`) and C `dsdgen` (`--compat c`) suites.
 
 ```sh
-./tpcgen-cli/scripts/tpch/compare-all-tables.sh --scale 1
-./tpcgen-cli/scripts/tpcds/compare-all-tables.sh --scale 1
+./benchseed-cli/scripts/tpch/compare-all-tables.sh --scale 1
+./benchseed-cli/scripts/tpcds/compare-all-tables.sh --scale 1
 ```
 
 Conformance runs in two tiers:
@@ -31,7 +31,7 @@ Conformance runs in two tiers:
   build of the Trino Java port), byte-for-byte diffs our output against it,
   and fails if the committed MD5SUMS have drifted from the living reference.
 
-`tpcgen-cli tpch` generates **exactly** the same bytes as the original
+`benchseed-cli tpch` generates **exactly** the same bytes as the original
 `dbgen` program. You can verify this for yourself by using `shasum`, for
 example:
 
@@ -55,7 +55,7 @@ cd ..
 shasum tpch-dbgen/*.tbl
 ```
 
-You can compare these yourself with the output of `tpchgen-cli` to verify correctness:
+You can compare these yourself with the output of `benchseed-tpch-cli` to verify correctness:
 
 [tpch-dbgen]: https://github.com/electrum/tpch-dbgen
 
