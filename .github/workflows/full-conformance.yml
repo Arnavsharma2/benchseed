@@ -48,21 +48,21 @@ jobs:
             ${{ runner.os }}-cargo-
 
       - name: Build Rust table generators
-        run: cargo build --release -p tpcgen-cli
+        run: cargo build --release -p benchseed-cli
 
       - name: Regenerate reference fixtures from C dbgen
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           for sf in 0.001 0.01 0.1 1; do
             ./scripts/tpch/generate-fixtures.sh --scale "$sf" --force
           done
 
       - name: Verify committed MD5SUMS still match the reference
-        run: git diff --exit-code -- tpcgen-cli/tests/fixtures/tpch
+        run: git diff --exit-code -- benchseed-cli/tests/fixtures/tpch
 
       - name: Byte-for-byte comparison against fresh reference
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           for sf in 0.001 0.01 0.1 1; do
             ./scripts/tpch/compare-all-tables.sh --scale "$sf" --full
           done
@@ -93,17 +93,17 @@ jobs:
             ${{ runner.os }}-cargo-
 
       - name: Build Rust table generators
-        run: cargo build --release -p tpcgen-cli
+        run: cargo build --release -p benchseed-cli
 
       - name: Download C dsdgen reference fixtures
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           ./scripts/tpcds/generate-fixtures.sh --compat c --scale 1
           ./scripts/tpcds/generate-fixtures.sh --compat c --scale 2
 
       - name: Byte-for-byte comparison against C dsdgen
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           ./scripts/tpcds/compare-all-tables.sh --compat c --scale 1 --full
           ./scripts/tpcds/compare-all-tables.sh --compat c --scale 2 --full
 
@@ -139,19 +139,19 @@ jobs:
             ${{ runner.os }}-cargo-
 
       - name: Build Rust table generators
-        run: cargo build --release -p tpcgen-cli
+        run: cargo build --release -p benchseed-cli
 
       - name: Build Trino Java reference implementation
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           ./scripts/tpcds/bootstrap-trino.sh
 
       - name: Generate reference fixtures with the Java implementation
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           ./scripts/tpcds/generate-fixtures.sh
 
       - name: Byte-for-byte comparison against the Java reference
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           ./scripts/tpcds/compare-all-tables.sh --scale 1 --full

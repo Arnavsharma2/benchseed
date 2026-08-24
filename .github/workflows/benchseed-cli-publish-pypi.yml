@@ -1,4 +1,4 @@
-name: tpchgen-cli-publish-pypi
+name: benchseed-cli-publish-pypi
 
 on:
   release:
@@ -13,7 +13,7 @@ jobs:
     uses: ./.github/workflows/build-py-packages.yml
     with:
       upload-artifacts: true
-      package: tpchgen-cli
+      package: benchseed-cli
 
   release:
     name: Release

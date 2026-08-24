@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main, master ]
     paths:
-      - 'tpcdsgen/**'
-      - 'tpcgen-cli/**'
+      - 'benchseed-tpcds/**'
+      - 'benchseed-cli/**'
       - '.github/**'
   pull_request:
     branches: [ main, master ]
@@ -42,11 +42,11 @@ jobs:
 
     - name: Build Rust table generators
       run: |
-        cargo build --release -p tpcgen-cli
+        cargo build --release -p benchseed-cli
 
     - name: Run conformance tests (Rust vs Java)
       run: |
-        cd tpcgen-cli
+        cd benchseed-cli
         ./scripts/tpcds/compare-all-tables.sh
 
   # Conformance testing against the C dsdgen reference implementation.
@@ -76,9 +76,9 @@ jobs:
 
     - name: Build Rust table generators
       run: |
-        cargo build --release -p tpcgen-cli
+        cargo build --release -p benchseed-cli
 
     - name: Run conformance tests (Rust --compat c vs C dsdgen)
       run: |
-        cd tpcgen-cli
+        cd benchseed-cli
         ./scripts/tpcds/compare-all-tables.sh --compat c

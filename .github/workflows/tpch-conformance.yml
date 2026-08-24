@@ -4,8 +4,8 @@ on:
   push:
     branches: ["main"]
     paths:
-      - 'tpchgen/**'
-      - 'tpcgen-cli/**'
+      - 'benchseed-tpch/**'
+      - 'benchseed-cli/**'
       - '.github/**'
   pull_request:
   workflow_dispatch:
@@ -16,7 +16,7 @@ env:
 
 jobs:
   # Conformance testing against committed MD5SUMS generated from C dbgen.
-  # See tpcgen-cli/scripts/tpch/generate-fixtures.sh for how the sums are
+  # See benchseed-cli/scripts/tpch/generate-fixtures.sh for how the sums are
   # produced.
   conformance-tests:
     # This job name is a required status check in the 'main' branch
@@ -46,11 +46,11 @@ jobs:
 
       - name: Build Rust table generators
         run: |
-          cargo build --release -p tpcgen-cli
+          cargo build --release -p benchseed-cli
 
       - name: Run conformance tests (Rust vs C dbgen MD5SUMS)
         run: |
-          cd tpcgen-cli
+          cd benchseed-cli
           for sf in 0.001 0.01 0.1 1; do
             ./scripts/tpch/compare-all-tables.sh --scale "$sf"
           done

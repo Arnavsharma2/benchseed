@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main, master ]
     paths:
-      - 'tpcdsgen/**'
-      - 'tpcgen-cli/**'
+      - 'benchseed-tpcds/**'
+      - 'benchseed-cli/**'
   workflow_dispatch:
 
 env:
@@ -40,13 +40,13 @@ jobs:
 
     - name: Build release binaries
       run: |
-        cargo build --release -p tpcgen-cli
+        cargo build --release -p benchseed-cli
 
     - name: Run benchmarks
       run: |
         # Generate all tables and time it using the unified CLI
         mkdir -p /tmp/bench
-        time ./target/release/tpcgen-cli tpcds dat --scale-factor 1 --output-dir /tmp/bench
+        time ./target/release/benchseed-cli tpcds dat --scale-factor 1 --output-dir /tmp/bench
 
     - name: Upload benchmark results
       uses: actions/upload-artifact@v7

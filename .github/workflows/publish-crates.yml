@@ -19,12 +19,12 @@ jobs:
       matrix:
         # Order here is sensitive, as it will be used to determine the order of publishing
         package:
-          - "tpchgen"
-          - "tpcdsgen"
-          - "tpchgen-arrow"
-          - "tpcdsgen-arrow"
-          - "tpcgen-cli"
-          - "tpchgen-cli"
+          - "benchseed-tpch"
+          - "benchseed-tpcds"
+          - "benchseed-tpch-arrow"
+          - "benchseed-tpcds-arrow"
+          - "benchseed-cli"
+          - "benchseed-tpch-cli"
     steps:
       - uses: actions/checkout@v7
 
