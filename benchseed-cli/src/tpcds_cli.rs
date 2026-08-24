@@ -235,6 +235,7 @@ impl CommonArgs {
         configure_logging(self.verbose, self.quiet, log_writer);
 
         std::fs::create_dir_all(&self.output_dir)?;
+        let command_line_arguments = std::env::args().collect::<Vec<_>>().join(" ");
 
         match output_format {
             // Parquet generates all tables in one call so that multiple
@@ -242,7 +243,8 @@ impl CommonArgs {
             OutputFormat::Parquet(output) => {
                 let mut table_sessions = Vec::with_capacity(tables.len());
                 for table in tables {
-                    let session = self.to_session(Some(table.get_name().to_string()))?;
+                    let session = self
+                        .to_session(Some(table.get_name().to_string()), &command_line_arguments)?;
                     table_sessions.push((table, session));
                 }
                 output
@@ -252,7 +254,8 @@ impl CommonArgs {
             OutputFormat::Dat(output) => {
                 let mut table_sessions = Vec::with_capacity(tables.len());
                 for table in tables {
-                    let session = self.to_session(Some(table.get_name().to_string()))?;
+                    let session = self
+                        .to_session(Some(table.get_name().to_string()), &command_line_arguments)?;
                     let progress = output.register_table(table, &session, progress.clone());
                     table_sessions.push((table, session, progress));
                 }
@@ -264,7 +267,8 @@ impl CommonArgs {
             OutputFormat::Csv(output) => {
                 let mut table_sessions = Vec::with_capacity(tables.len());
                 for table in tables {
-                    let session = self.to_session(Some(table.get_name().to_string()))?;
+                    let session = self
+                        .to_session(Some(table.get_name().to_string()), &command_line_arguments)?;
                     let progress = output.register_table(table, &session, progress.clone());
                     table_sessions.push((table, session, progress));
                 }
@@ -325,11 +329,8 @@ impl CommonArgs {
         Ok(tables)
     }
 
-    fn to_session(&self, table: Option<String>) -> Result<Session> {
+    fn to_session(&self, table: Option<String>, command_line_arguments: &str) -> Result<Session> {
         let table = table.as_deref().map(parse_table).transpose()?;
-
-        // store the command line arguments used to create this
-        let command_line_arguments = std::env::args().collect::<Vec<_>>().join(" ");
 
         let mut builder = SessionBuilder::new()
             .with_scale_factor(self.scale_factor)
