@@ -4,7 +4,7 @@ This directory contains a set of scripts to generate TPCH data at various scale 
 
 # IO Throughput Limitations
 
-[`tpchgen-cli`](../tpchgen-cli/README.md) is the fastest TPCH generator we know of
+[`benchseed-tpch-cli`](../benchseed-tpch-cli/README.md) is the fastest TPCH generator we know of
 at the time of this writing. On a 2023 Mac M3 Max laptop, it easily generates
 data faster than can be written to SSD (which tops out about 1GB/s).
 
@@ -13,21 +13,19 @@ limited by local disk I/O. For example:
 
 ```shell
 # Generate SF=100, about 100GB of data, piped to /dev/null, reporting statistics
-tpchgen-cli -s 100 --stdout | pv -arb > /dev/null
+benchseed-tpch-cli -s 100 --stdout | pv -arb > /dev/null
 # Outputs something similar to
 # 106GiB [3.09GiB/s] (3.09GiB/s)
 # For parquet
-tpchgen-cli parquet -s 100 --stdout | pv -arb > /dev/null
+benchseed-tpch-cli parquet -s 100 --stdout | pv -arb > /dev/null
 # 38.2GiB [ 865MiB/s] ( 865MiB/s)
 ```
 
 # Benchmarking Columnar file formats
 
-![Parquet Generation Performance](../parquet-performance.png)
+See [benchseed performance Spreadsheet] for more details.
 
-See [tpchgen-rs performance Spreadsheet] for more details.
-
-[tpchgen-rs performance Spreadsheet]: https://docs.google.com/spreadsheets/d/14qTHR5zgqXq4BkhO1IUw2BPwBUIOqMXLZ2fUyOaPflI/edit?gid=0#gid=0
+[benchseed performance Spreadsheet]: https://docs.google.com/spreadsheets/d/14qTHR5zgqXq4BkhO1IUw2BPwBUIOqMXLZ2fUyOaPflI/edit?gid=0#gid=0
 
 [Apache Parquet](https://parquet.apache.org/) is a columnar storage file format
 that is optimized for use with big data processing frameworks. It is widely used
@@ -36,20 +34,20 @@ including Apache Spark, DataFusion, Snowflake, DataBricks, and DuckDB.
 
 | Name                  | Generator | Output Format        | Notes                                       |
 |-----------------------|-----------|----------------------|---------------------------------------------|
-| [parquet_tpchgen.sh]  | `tpchgen` | Parquet (snappy)     |                                             |
+| [parquet_benchseed-tpch.sh]  | `benchseed-tpch` | Parquet (snappy)     |                                             |
 | [parquet_duckdb.sh]   | `duckdb`  | Parquet (snappy)     | Includes DuckDB --> Parquet |
 | [duckdb_duckdb.sh]    | `duckdb`  | DuckDB (proprietary) |                                             |
 
 
-## `parquet_tpchgen.sh`
+## `parquet_benchseed-tpch.sh`
 
-This script uses the `tpchgen-cli` command in this repo to produce a 
+This script uses the `benchseed-tpch-cli` command in this repo to produce a
 single parquet file per table, with snappy page compression.
 
 Example command to create Scale Factor 10
 
 ```shell
-tpchgen-cli parquet -s 10
+benchseed-tpch-cli parquet -s 10
 ```
 
 ## `parquet_duckdb.sh`
@@ -103,8 +101,6 @@ CALL dbgen(sf = 10);
 
 # Benchmarking `TBL` format
 
-![TBL Performance](../tbl-performance.png)
-
 The classic `dbgen` program produces data in a format known as
 `TBL` (or `tbl`), which is a simple text format delimited by `|` characters.
 Prior to the advent of open columnar formats like Parquet, running TPCH required
@@ -116,36 +112,36 @@ could be executed. This format is still useful for benchmarking and comparison.
 
 | Name                  | Generator | Output Format        | Notes                                    |
 |-----------------------|-----------|----------------------|------------------------------------------|
-| [tbl_tpchgen.sh]      | `tpchgen` | TBL                  |                                          |
-| [tbl_tpchgen_1.sh]    | `dbgen`   | TBL                  | Restricted to 1 core (`--num-threads=1`) |
+| [tbl_benchseed-tpch.sh]      | `benchseed-tpch` | TBL                  |                                          |
+| [tbl_benchseed-tpch_1.sh]    | `dbgen`   | TBL                  | Restricted to 1 core (`--num-threads=1`) |
 | [tbl_dbgen.sh]        | `dbgen`   | TBL                  |                                          |
 | [tbl_dbgen_O3.sh]     | `dbgen`   | TBL                  | `dbgen` modified (compiled with `-O3`)   |
 
 
-## `tbl_tpchgen.sh`
+## `tbl_benchseed-tpch.sh`
 
-This script uses the `tpchgen-cli` command in this repo to produce a
+This script uses the `benchseed-tpch-cli` command in this repo to produce a
 single, uncompressed tbl file per table.
 
 Example command for SF=10
 
 ```shell
-tpchgen-cli -s 10
+benchseed-tpch-cli -s 10
 ```
 
-## `tbl_tpchgen_1.sh`
+## `tbl_benchseed-tpch_1.sh`
 
-This script uses the `tpchgen-cli` command in this repo, restricted to using a
+This script uses the `benchseed-tpch-cli` command in this repo, restricted to using a
 single core to produce a single, uncompressed tbl file per table.
 
-This is useful for comparing the per-core performance of `tpchgen-cli` against
+This is useful for comparing the per-core performance of `benchseed-tpch-cli` against
 the classic `dbgen` program, which only supports single-threaded execution.
 
 Example command for SF=10
 
 ```shell
 # Scale factor 10
-tpchgen-cli -s 10 --num-threads=1
+benchseed-tpch-cli -s 10 --num-threads=1
 ```
 
 ## `tbl_dbgen.sh`
@@ -245,13 +241,11 @@ dd if=/dev/zero of=/data/test1.img bs=1G count=10 oflag=dsync
 # 10737418240 bytes (11 GB, 10 GiB) copied, 13.179 s, 815 MB/s
 ```
 
-## install `tpchgen-rs`
+## install `benchseed`
 ```shell
 cd /data
-git clone git@github.com:clflushopt/tpchgen-rs.git
-cd tpchgen-rs
-cargo install --path tpchgen-cli
+git clone git@github.com:clflushopt/benchseed.git
+cd benchseed
+cargo install --path benchseed-tpch-cli
 ```
-
-
 

@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# Runs the tpchgen-cli to generate tbl data at various scales,
+# Runs the benchseed-tpch-cli to generate parquet data at various scales,
 
 set -x
 set -e
 
-LOGFILE=tbl_tpchgen.txt
+LOGFILE=parquet_benchseed-tpch.txt
 echo "***********Timings**********" >> $LOGFILE
 date >> $LOGFILE
 uname -a >> $LOGFILE
@@ -13,5 +13,5 @@ uname -a >> $LOGFILE
 SCALE_FACTORS="1 10 100 1000"
 for sf in $SCALE_FACTORS ; do
     echo "SF=$sf" >> $LOGFILE
-    /usr/bin/time -a -o $LOGFILE tpchgen-cli -s $sf --output-dir=out_tpchgen
+    /usr/bin/time -a -o $LOGFILE benchseed-tpch-cli parquet -s $sf --output-dir=out_benchseed-tpch
 done
