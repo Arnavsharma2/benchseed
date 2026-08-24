@@ -18,3 +18,6 @@ benchseed-cli tpch parquet -s 100 --tables lineitem --parts 10 --output-dir /tmp
 benchseed-cli tpcds csv -s 1 --output-dir /tmp/tpcds
 benchseed-cli tpcds csv -s 1 --delimiter='\t' --output-dir /tmp/tpcds
 ```
+
+CSV output supports comma, pipe, tab (`\t`), and semicolon delimiters. BenchSeed
+rejects other delimiters because generated unquoted fields may contain them.

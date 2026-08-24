@@ -234,8 +234,7 @@ struct CsvArgs {
     ///
     /// Specifies the delimiter character to use when generating CSV files.
     ///
-    /// Supports escape sequences: \t (tab), \n (newline), \r (carriage return), \\ (backslash)
-    /// Common delimiters: ',' (comma), '|' (pipe), '\t' (tab), ';' (semicolon)
+    /// Supported delimiters: ',' (comma), '|' (pipe), '\t' (tab), ';' (semicolon)
     #[arg(long, default_value = ",", value_parser = parse_delimiter)]
     delimiter: char,
 }
