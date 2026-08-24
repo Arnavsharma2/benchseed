@@ -52,10 +52,8 @@ package. See its [README](benchseed-cli/README.md) for more examples.
 
 The inherited benchmark suite records the TPC-H generator as more than 10x
 faster than the next fastest generator tested. On a 2023 Mac M3 Max laptop, it
-easily generates data faster than can
-know of. On a 2023 Mac M3 Max laptop, it easily generates data faster than can
-be written to SSD. See [BENCHMARKS.md](./benchmarks/BENCHMARKS.md) for more
-details on performance and benchmarking.
+easily generates data faster than can be written to SSD. See
+[BENCHMARKS.md](./benchmarks/BENCHMARKS.md) for methodology and details.
 
 Times to create TPC-H tables in Parquet format using `benchseed-tpch-cli` and
 DuckDB for various scale factors. These measurements were inherited from the
@@ -68,7 +66,7 @@ DuckDB for various scale factors. These measurements were inherited from the
 | 100          | `1:14.22`     | `17:48.27` | `16:40.88`           |
 | 1000         | `10:26.26`    | N/A (OOM)  | N/A (OOM)            |
 
-- DuckDB (proprietary) is the time required to create TPCH data using the
+- DuckDB (proprietary) is the time required to create TPC-H data using the
   proprietary DuckDB format
 - Creating Scale Factor 1000 using DuckDB [required 647 GB of memory](https://duckdb.org/docs/stable/extensions/tpch.html#resource-usage-of-the-data-generator),
   which is why it is not included in the table above.
