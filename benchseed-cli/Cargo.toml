@@ -1,0 +1,44 @@
+[package]
+name = "benchseed-cli"
+version = "0.1.0"
+authors = { workspace = true }
+description = "Command line tool for TPC benchmark data generation."
+readme = "README.md"
+edition = { workspace = true }
+homepage = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+
+[lib]
+name = "benchseed_cli"
+path = "src/lib.rs"
+
+[[bin]]
+name = "benchseed-cli"
+path = "bin/benchseed_cli.rs"
+
+[dependencies]
+arrow = "59"
+clap = { version = "4.5.32", features = ["derive"] }
+env_logger = "0.11.7"
+futures = "0.3.31"
+indicatif = { version = "0.18.3", optional = true }
+log = "0.4.26"
+num_cpus = "1.0"
+parquet = "59"
+benchseed-tpcds = { path = "../benchseed-tpcds", version = "0.1.0" }
+benchseed-tpcds-arrow = { path = "../benchseed-tpcds-arrow", version = "0.1.0" }
+tokio = { version = "1.44.1", features = ["full"] }
+benchseed-tpch = { path = "../benchseed-tpch", version = "3.0.0" }
+benchseed-tpch-arrow = { path = "../benchseed-tpch-arrow", version = "3.0.0" }
+
+[features]
+default = ["indicatif-progress"]
+# Enable the default CLI terminal progress bars backed by `indicatif`.
+indicatif-progress = ["dep:indicatif"]
+
+[dev-dependencies]
+assert_cmd = "2.0"
+flate2 = "1.1.0"
+predicates = "3.0"
+tempfile = "3.20.0"

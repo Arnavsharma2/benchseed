@@ -1,0 +1,28 @@
+[package]
+name = "benchseed-tpch-cli"
+version = "3.0.0"
+authors = { workspace = true }
+description = "Blazing fast pure Rust TPC-H data generator command line tool."
+readme = "README.md"
+edition = { workspace = true }
+homepage = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+
+[[bin]]
+name = "benchseed-tpch-cli"
+path = "bin/benchseed_tpch_cli.rs"
+
+[dependencies]
+clap = { version = "4.5.32", features = ["derive"] }
+benchseed-cli = { path = "../benchseed-cli", version = "0.1.0", default-features = false }
+tokio = { version = "1.44.1", features = ["full"] }
+
+[features]
+default = ["indicatif-progress"]
+# Enable the default CLI terminal progress bars backed by `indicatif`.
+indicatif-progress = ["benchseed-cli/indicatif-progress"]
+
+[dev-dependencies]
+assert_cmd = "2.0"
+tempfile = "3.20.0"

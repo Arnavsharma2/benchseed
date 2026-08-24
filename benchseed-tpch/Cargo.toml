@@ -1,0 +1,17 @@
+[package]
+name = "benchseed-tpch"
+authors = ["clflushopt", "alamb", "Arnav Sharma"]
+description = "Blazing fast pure Rust no dependency TPC-H data generation library."
+repository = "https://github.com/Arnavsharma2/benchseed"
+readme = "README.md"
+version = { workspace = true }
+edition = { workspace = true }
+homepage = { workspace = true }
+license = { workspace = true }
+
+# Designed to have no depdencies to make it easy to embed in other projects
+# See ../ARCHITECTURE.md for more details
+[dependencies]
+
+[dev-dependencies]
+flate2 = "1.1.0"

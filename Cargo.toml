@@ -1,16 +1,16 @@
 [workspace]
 
-members = [ "tpchgen", "tpcdsgen" , "tpchgen-arrow", "tpchgen-cli", "tpcdsgen-arrow", "tpcgen-cli"]
+members = [ "benchseed-tpch", "benchseed-tpcds" , "benchseed-tpch-arrow", "benchseed-tpch-cli", "benchseed-tpcds-arrow", "benchseed-cli"]
 
 resolver = "2"
 
 [workspace.package]
-authors = ["clflushopt", "alamb"]
+authors = ["clflushopt", "alamb", "Arnav Sharma"]
 edition = "2021"
-homepage = "https://github.com/clflushopt/tpchgen-rs"
+homepage = "https://github.com/Arnavsharma2/benchseed"
 license = "Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/clflushopt/tpchgen-rs"
+repository = "https://github.com/Arnavsharma2/benchseed"
 version = "3.0.0"
 
 [workspace.dependencies]
