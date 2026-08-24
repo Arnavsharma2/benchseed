@@ -123,16 +123,14 @@ impl Distribution {
                 return Ok(distribution);
             }
 
-            let parts: Vec<&str> = line.split("|").collect::<Vec<_>>();
-            if parts.len() < 2 {
+            let Some((value, weight)) = line.split_once('|') else {
                 return Err(io::Error::new(
                     io::ErrorKind::InvalidData,
                     format!("Invalid distribution line format: {}", line),
                 ));
-            }
+            };
 
-            let value = parts[0];
-            let weight = match parts[1].trim().parse::<i32>() {
+            let weight = match weight.trim().parse::<i32>() {
                 Ok(w) => w,
                 Err(_) => {
                     return Err(io::Error::new(
