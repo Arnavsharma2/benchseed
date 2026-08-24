@@ -153,8 +153,8 @@ impl BufferRecycler {
     }
     /// return a new empty buffer, with size bytes capacity
     fn new_buffer(&self, size: usize) -> Vec<u8> {
-        let mut buffers = self.buffers.lock().unwrap();
-        if let Some(mut buffer) = buffers.pop_front() {
+        let recycled = self.buffers.lock().unwrap().pop_front();
+        if let Some(mut buffer) = recycled {
             buffer.clear();
             if size > buffer.capacity() {
                 buffer.reserve(size - buffer.capacity());
@@ -223,6 +223,20 @@ mod tests {
         fn flush(self) -> Result<(), io::Error> {
             Ok(())
         }
+    }
+
+    #[test]
+    fn recycler_clears_and_reuses_buffer_allocations() {
+        let recycler = BufferRecycler::new();
+        let mut buffer = recycler.new_buffer(16);
+        buffer.extend_from_slice(b"generated data");
+        let allocation = buffer.as_ptr();
+        recycler.return_buffer(buffer);
+
+        let recycled = recycler.new_buffer(8);
+        assert!(recycled.is_empty());
+        assert!(recycled.capacity() >= 16);
+        assert_eq!(recycled.as_ptr(), allocation);
     }
 
     #[tokio::test]
