@@ -13,12 +13,6 @@ Fast, deterministic [TPC-H] and [TPC-DS] benchmark data generation in Rust.
 [TPC-H]: https://www.tpc.org/tpch/
 [TPC-DS]: https://www.tpc.org/tpcds/
 
-> **Origin:** This repository began as a clean-history import of
-> [clflushopt/tpchgen-rs](https://github.com/clflushopt/tpchgen-rs) at commit
-> [`7e64184`](https://github.com/clflushopt/tpchgen-rs/commit/7e64184d25648ffa8db4575bc683a24d23f60297).
-> The original work is by clflushopt, alamb, and the upstream contributors.
-> See [NOTICE](NOTICE) for attribution and a summary of subsequent changes.
-
 ## Features
 
 1. High-throughput TPC-H and TPC-DS generation
