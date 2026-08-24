@@ -104,14 +104,13 @@ impl TextPool {
         random: &mut RowRandomInt,
     ) {
         let syntax = distributions.verb_phrase().random_value(random);
-        let max_length = syntax.len();
 
-        for c in syntax.chars().take(max_length).step_by(2) {
-            let source = match c {
-                'D' => distributions.adverbs(),
-                'V' => distributions.verbs(),
-                'X' => distributions.auxiliaries(),
-                c => panic!("Unknown token '{}'", c),
+        for &token in syntax.as_bytes().iter().step_by(2) {
+            let source = match token {
+                b'D' => distributions.adverbs(),
+                b'V' => distributions.verbs(),
+                b'X' => distributions.auxiliaries(),
+                token => panic!("Unknown token '{}'", token as char),
             };
 
             // pick a random word
