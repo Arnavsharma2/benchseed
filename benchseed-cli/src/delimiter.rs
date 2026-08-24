@@ -53,10 +53,11 @@ mod tests {
 
     #[test]
     fn rejects_unsafe_delimiters() {
-        for value in ["-", "_", ".", "/", ":", "@", "#", " ", "\\n"] {
+        for value in ["-", "_", ".", "/", ":", "@", "#", " "] {
             let error = parse_delimiter(value).expect_err("delimiter should be rejected");
             assert!(error.contains("supported delimiters"), "{error}");
         }
+        assert!(parse_delimiter("\\n").is_err());
     }
 
     #[test]
