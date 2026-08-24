@@ -229,6 +229,8 @@ fn generate_sales_and_returns<G: RowGeneratorFactory, O: TableOutput>(
     else {
         unreachable!("sales table must have sales and returns progress handles")
     };
+    let mut sales_progress = BatchedProgress::new(sales_progress);
+    let mut returns_progress = BatchedProgress::new(returns_progress);
     let mut generator = G::create();
     let source_row_count = session.get_scaling().get_row_count(sales_table);
 
