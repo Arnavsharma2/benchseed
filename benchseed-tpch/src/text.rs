@@ -72,24 +72,23 @@ impl TextPool {
         random: &mut RowRandomInt,
     ) {
         let syntax = distributions.grammar().random_value(random);
-        let max_length = syntax.len();
 
-        for c in syntax.chars().take(max_length).step_by(2) {
-            match c {
-                'V' => Self::generate_verb_phrase(distributions, output, random),
-                'N' => Self::generate_noun_phrase(distributions, output, random),
-                'P' => {
+        for &token in syntax.as_bytes().iter().step_by(2) {
+            match token {
+                b'V' => Self::generate_verb_phrase(distributions, output, random),
+                b'N' => Self::generate_noun_phrase(distributions, output, random),
+                b'P' => {
                     let preposition = distributions.prepositions().random_value(random);
                     output.extend_from_slice(preposition.as_bytes());
                     output.extend_from_slice(b" the ");
                     Self::generate_noun_phrase(distributions, output, random);
                 }
-                'T' => {
+                b'T' => {
                     output.pop().expect("at least one byte");
                     let terminator = distributions.terminators().random_value(random);
                     output.extend_from_slice(terminator.as_bytes());
                 }
-                c => panic!("Unknown token '{}'", c),
+                token => panic!("Unknown token '{}'", token as char),
             };
 
             let last = output.last().copied().expect("at least one byte");
