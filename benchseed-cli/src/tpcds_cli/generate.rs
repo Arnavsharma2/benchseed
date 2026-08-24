@@ -7,6 +7,7 @@
 //! drift apart.
 
 use super::progress::TableProgress;
+use crate::progress::BatchedProgress;
 use benchseed_tpcds::config::{Session, Table};
 use benchseed_tpcds::row::*;
 use log::info;
@@ -179,6 +180,7 @@ fn generate_simple<G: RowGeneratorFactory, O: TableOutput>(
     let TableProgress::Single(progress) = progress else {
         unreachable!("simple table must have one progress handle")
     };
+    let mut progress = BatchedProgress::new(progress);
     let mut generator = G::create();
     let row_count = session.get_scaling().get_row_count(table);
 

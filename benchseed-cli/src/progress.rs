@@ -151,6 +151,52 @@ impl fmt::Debug for ProgressHandle {
     }
 }
 
+/// Coalesces frequent progress updates before forwarding them to a handle.
+///
+/// Row generators can produce millions of events per second. Batching keeps
+/// progress reporting off the hot path while preserving the exact unit total.
+pub(crate) struct BatchedProgress {
+    handle: ProgressHandle,
+    pending: u64,
+    batch_size: u64,
+}
+
+impl BatchedProgress {
+    const DEFAULT_BATCH_SIZE: u64 = 1024;
+
+    pub(crate) fn new(handle: ProgressHandle) -> Self {
+        Self::with_batch_size(handle, Self::DEFAULT_BATCH_SIZE)
+    }
+
+    fn with_batch_size(handle: ProgressHandle, batch_size: u64) -> Self {
+        debug_assert!(batch_size > 0);
+        Self {
+            handle,
+            pending: 0,
+            batch_size,
+        }
+    }
+
+    pub(crate) fn increment(&mut self, units: u64) {
+        self.pending = self.pending.saturating_add(units);
+        if self.pending >= self.batch_size {
+            self.flush();
+        }
+    }
+
+    pub(crate) fn flush(&mut self) {
+        if self.pending == 0 {
+            return;
+        }
+        self.handle.increment(std::mem::take(&mut self.pending));
+    }
+
+    pub(crate) fn complete(mut self) {
+        self.flush();
+        self.handle.complete();
+    }
+}
+
 /// Default tracker used when no progress backend is installed.
 ///
 /// This keeps generation on the same always-reporting path; the no-op
@@ -608,6 +654,29 @@ mod tests {
         atomic::{AtomicU64, Ordering},
         Arc, Mutex,
     };
+
+    #[test]
+    fn batched_progress_preserves_exact_total() {
+        let total = Arc::new(AtomicU64::new(0));
+        let captured = Arc::clone(&total);
+        let mut progress = BatchedProgress::with_batch_size(
+            ProgressHandle::new(move |units| {
+                captured.fetch_add(units, Ordering::Relaxed);
+            }),
+            4,
+        );
+
+        progress.increment(1);
+        progress.increment(2);
+        assert_eq!(total.load(Ordering::Relaxed), 0);
+
+        progress.increment(1);
+        assert_eq!(total.load(Ordering::Relaxed), 4);
+
+        progress.increment(3);
+        progress.flush();
+        assert_eq!(total.load(Ordering::Relaxed), 7);
+    }
 
     /// Mock implementation that records every event. Demonstrates that
     /// the trait is dyn-compatible and usable from external code without
