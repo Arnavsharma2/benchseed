@@ -1,10 +1,7 @@
-/// Parse a single-byte CSV delimiter, including common escape sequences.
+/// Parse a CSV delimiter known to be safe for every generated table.
 pub(crate) fn parse_delimiter(value: &str) -> Result<char, String> {
     let delimiter = match value {
         "\\t" => '\t',
-        "\\n" => '\n',
-        "\\r" => '\r',
-        "\\\\" => '\\',
         _ => {
             let mut chars = value.chars();
             let Some(delimiter) = chars.next() else {
@@ -23,7 +20,10 @@ pub(crate) fn parse_delimiter(value: &str) -> Result<char, String> {
         ));
     }
 
-    Ok(delimiter)
+    match delimiter {
+        ',' | '|' | '\t' | ';' => Ok(delimiter),
+        _ => Err(supported_delimiters_error(value)),
+    }
 }
 
 fn delimiter_length_error(value: &str) -> String {
@@ -32,17 +32,31 @@ fn delimiter_length_error(value: &str) -> String {
     )
 }
 
+fn supported_delimiters_error(value: &str) -> String {
+    format!(
+        "Unsupported CSV delimiter '{value}'; supported delimiters are ',' (comma), '|' (pipe), '\\t' (tab), and ';' (semicolon)"
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::parse_delimiter;
 
     #[test]
-    fn parses_characters_and_escape_sequences() {
+    fn accepts_safe_delimiters() {
         assert_eq!(parse_delimiter(","), Ok(','));
+        assert_eq!(parse_delimiter("|"), Ok('|'));
         assert_eq!(parse_delimiter("\\t"), Ok('\t'));
-        assert_eq!(parse_delimiter("\\n"), Ok('\n'));
-        assert_eq!(parse_delimiter("\\r"), Ok('\r'));
-        assert_eq!(parse_delimiter("\\\\"), Ok('\\'));
+        assert_eq!(parse_delimiter("\t"), Ok('\t'));
+        assert_eq!(parse_delimiter(";"), Ok(';'));
+    }
+
+    #[test]
+    fn rejects_unsafe_delimiters() {
+        for value in ["-", "_", ".", "/", ":", "@", "#", " ", "\\n"] {
+            let error = parse_delimiter(value).expect_err("delimiter should be rejected");
+            assert!(error.contains("supported delimiters"), "{error}");
+        }
     }
 
     #[test]
