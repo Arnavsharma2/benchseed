@@ -44,9 +44,9 @@ use std::fmt::{self, Display};
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::CallCenterCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, CallCenterRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::CallCenterCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, CallCenterRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = CallCenterRowGenerator::new();
@@ -147,9 +147,9 @@ impl Display for CallCenterCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::CatalogPageCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, CatalogPageRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::CatalogPageCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, CatalogPageRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = CatalogPageRowGenerator::new();
@@ -232,9 +232,9 @@ impl Display for CatalogPageCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::CatalogReturnsCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, CatalogSalesRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::CatalogReturnsCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, CatalogSalesRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = CatalogSalesRowGenerator::new();
@@ -340,9 +340,9 @@ impl Display for CatalogReturnsCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::CatalogSalesCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, CatalogSalesRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::CatalogSalesCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, CatalogSalesRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = CatalogSalesRowGenerator::new();
@@ -473,9 +473,9 @@ impl Display for CatalogSalesCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::CustomerCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, CustomerRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::CustomerCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, CustomerRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = CustomerRowGenerator::new();
@@ -565,9 +565,9 @@ impl Display for CustomerCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::CustomerAddressCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, CustomerAddressRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::CustomerAddressCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, CustomerAddressRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = CustomerAddressRowGenerator::new();
@@ -648,9 +648,9 @@ impl Display for CustomerAddressCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::CustomerDemographicsCsv;
-/// # use benchseed-tpcds::row::{CustomerDemographicsRowGenerator, GeneratedRow, RowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::CustomerDemographicsCsv;
+/// # use benchseed_tpcds::row::{CustomerDemographicsRowGenerator, GeneratedRow, RowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = CustomerDemographicsRowGenerator::new();
@@ -727,9 +727,9 @@ impl Display for CustomerDemographicsCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::DateDimCsv;
-/// # use benchseed-tpcds::row::{DateDimRowGenerator, GeneratedRow, RowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::DateDimCsv;
+/// # use benchseed_tpcds::row::{DateDimRowGenerator, GeneratedRow, RowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = DateDimRowGenerator::new();
@@ -829,9 +829,9 @@ impl Display for DateDimCsv<'_> {
 /// the command line used, neither of which is reproducible, so this example
 /// checks only the stable parts of the line.
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::DbgenVersionCsv;
-/// # use benchseed-tpcds::row::{DbgenVersionRowGenerator, GeneratedRow, RowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::DbgenVersionCsv;
+/// # use benchseed_tpcds::row::{DbgenVersionRowGenerator, GeneratedRow, RowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = DbgenVersionRowGenerator::new();
@@ -906,9 +906,9 @@ impl Display for DbgenVersionCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::HouseholdDemographicsCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, HouseholdDemographicsRowGenerator, RowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::HouseholdDemographicsCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, HouseholdDemographicsRowGenerator, RowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = HouseholdDemographicsRowGenerator::new();
@@ -981,9 +981,9 @@ impl Display for HouseholdDemographicsCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::IncomeBandCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, IncomeBandRowGenerator, RowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::IncomeBandCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, IncomeBandRowGenerator, RowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = IncomeBandRowGenerator::new();
@@ -1054,9 +1054,9 @@ impl Display for IncomeBandCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::InventoryCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, InventoryRowGenerator, RowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::InventoryCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, InventoryRowGenerator, RowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = InventoryRowGenerator::new();
@@ -1130,9 +1130,9 @@ impl Display for InventoryCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::ItemCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, ItemRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::ItemCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, ItemRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = ItemRowGenerator::new();
@@ -1224,9 +1224,9 @@ impl Display for ItemCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::PromotionCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, PromotionRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::PromotionCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, PromotionRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = PromotionRowGenerator::new();
@@ -1315,9 +1315,9 @@ impl Display for PromotionCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::ReasonCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, ReasonRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::ReasonCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, ReasonRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = ReasonRowGenerator::new();
@@ -1388,9 +1388,9 @@ impl Display for ReasonCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::ShipModeCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, ShipModeRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::ShipModeCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, ShipModeRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = ShipModeRowGenerator::new();
@@ -1464,9 +1464,9 @@ impl Display for ShipModeCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::StoreCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, StoreRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::StoreCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, StoreRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = StoreRowGenerator::new();
@@ -1565,9 +1565,9 @@ impl Display for StoreCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::StoreReturnsCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, StoreSalesRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::StoreReturnsCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, StoreSalesRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// // store_returns rows are generated as child rows of the store_sales generator
@@ -1689,9 +1689,9 @@ impl Display for StoreReturnsCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::StoreSalesCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, StoreSalesRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::StoreSalesCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, StoreSalesRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = StoreSalesRowGenerator::new();
@@ -1829,9 +1829,9 @@ impl Display for StoreSalesCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::TimeDimCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, TimeDimRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::TimeDimCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, TimeDimRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = TimeDimRowGenerator::new();
@@ -1909,9 +1909,9 @@ impl Display for TimeDimCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::WarehouseCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, WarehouseRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::WarehouseCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, WarehouseRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = WarehouseRowGenerator::new();
@@ -1995,9 +1995,9 @@ impl Display for WarehouseCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::WebPageCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, WebPageRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::WebPageCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, WebPageRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = WebPageRowGenerator::new();
@@ -2081,9 +2081,9 @@ impl Display for WebPageCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::WebReturnsCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, WebSalesRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::WebReturnsCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, WebSalesRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = WebSalesRowGenerator::new();
@@ -2186,9 +2186,9 @@ impl Display for WebReturnsCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::WebSalesCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, WebSalesRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::WebSalesCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, WebSalesRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = WebSalesRowGenerator::new();
@@ -2295,9 +2295,9 @@ impl Display for WebSalesCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpcds::config::Session;
-/// # use benchseed-tpcds::csv::WebSiteCsv;
-/// # use benchseed-tpcds::row::{GeneratedRow, RowGenerator, WebSiteRowGenerator};
+/// # use benchseed_tpcds::config::Session;
+/// # use benchseed_tpcds::csv::WebSiteCsv;
+/// # use benchseed_tpcds::row::{GeneratedRow, RowGenerator, WebSiteRowGenerator};
 /// # use std::fmt::Write;
 /// # let session = Session::default();
 /// let mut generator = WebSiteRowGenerator::new();

@@ -13,7 +13,7 @@ use tokio::task::JoinSet;
 
 /// Something that knows how to generate data into a buffer
 ///
-/// For example, this is implemented for the different generators in the benchseed-tpch
+/// For example, this is implemented for the different generators in the benchseed_tpch
 /// crate
 pub trait Source: Send {
     /// generates the data for this generator into the buffer, returning the buffer.

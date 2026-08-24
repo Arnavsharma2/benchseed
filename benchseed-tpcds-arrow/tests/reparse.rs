@@ -8,7 +8,7 @@
 //! original generators.
 //!
 //! Strategy:
-//! - drive the benchseed-tpcds RowGenerator to produce rows for each table
+//! - drive the benchseed_tpcds RowGenerator to produce rows for each table
 //! - write rows via their `fmt::Display` impls just like the CLI does
 //! - re-parse the output with the Arrow CSV reader using the same schema
 //! - assert that the reparsed and direct Arrow RecordBatches are equal
@@ -17,11 +17,9 @@ use arrow::array::RecordBatch;
 use arrow::compute::concat_batches;
 use arrow::datatypes::SchemaRef;
 use arrow::record_batch::RecordBatchReader;
-use std::io::Write as _;
-use std::sync::{Arc, LazyLock};
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::csv::{csv_header, GeneratedRowCsv};
-use benchseed-tpcds::row::{
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::csv::{csv_header, GeneratedRowCsv};
+use benchseed_tpcds::row::{
     CallCenterRowGenerator, CatalogPageRowGenerator, CatalogSalesRowGenerator,
     CustomerAddressRowGenerator, CustomerDemographicsRowGenerator, CustomerRowGenerator,
     DateDimRowGenerator, GeneratedRow, HouseholdDemographicsRowGenerator, IncomeBandRowGenerator,
@@ -37,6 +35,8 @@ use benchseed_tpcds_arrow::{
     ReasonArrow, ShipModeArrow, StoreArrow, StoreReturnsArrow, StoreSalesArrow, TimeDimArrow,
     WarehouseArrow, WebPageArrow, WebReturnsArrow, WebSalesArrow, WebSiteArrow,
 };
+use std::io::Write as _;
+use std::sync::{Arc, LazyLock};
 
 /// Session options for tests (scale factor 1).
 static SESSION: LazyLock<Session> = LazyLock::new(Session::default);

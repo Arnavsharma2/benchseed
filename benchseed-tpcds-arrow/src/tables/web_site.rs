@@ -7,9 +7,9 @@ use arrow::array::{Date32Array, Decimal128Array, Int32Array, Int64Array, RecordB
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::row::{GeneratedRow, WebSiteRowGenerator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::row::{GeneratedRow, WebSiteRowGenerator};
 
 pub struct WebSiteArrow {
     inner: RowIter<WebSiteRowGenerator>,
@@ -86,7 +86,7 @@ impl Iterator for WebSiteArrow {
         let mut web_market_manager: Vec<Option<String>> = Vec::with_capacity(rows.len());
         let mut web_company_id: Vec<Option<i32>> = Vec::with_capacity(rows.len());
         let mut web_company_name: Vec<Option<String>> = Vec::with_capacity(rows.len());
-        let mut addr_rows: Vec<(benchseed-tpcds::types::Address, i64, u32)> =
+        let mut addr_rows: Vec<(benchseed_tpcds::types::Address, i64, u32)> =
             Vec::with_capacity(rows.len());
         let mut web_tax_pct: Vec<Option<i128>> = Vec::with_capacity(rows.len());
 

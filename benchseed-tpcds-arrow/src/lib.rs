@@ -1,12 +1,12 @@
 //! Generate TPC-DS data as Apache Arrow [`RecordBatch`](arrow::array::RecordBatch)es.
 //!
-//! This crate wraps the [`benchseed-tpcds`] row generators and produces typed Arrow
+//! This crate wraps the [`benchseed_tpcds`] row generators and produces typed Arrow
 //! arrays directly — bypassing the intermediate string formatting step —
 //! for significantly faster ingestion into Arrow-based engines.
 //!
 //! # Example
 //! ```
-//! use benchseed-tpcds::config::Session;
+//! use benchseed_tpcds::config::Session;
 //! use benchseed_tpcds_arrow::ReasonArrow;
 //!
 //! let session = Session::default();
@@ -20,8 +20,8 @@ mod tables;
 
 use std::collections::VecDeque;
 
-use benchseed-tpcds::config::Session;
-use benchseed-tpcds::row::{GeneratedRow, RowGenerator};
+use benchseed_tpcds::config::Session;
+use benchseed_tpcds::row::{GeneratedRow, RowGenerator};
 
 pub use tables::{
     CallCenterArrow, CatalogPageArrow, CatalogReturnsArrow, CatalogSalesArrow,

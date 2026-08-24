@@ -1,9 +1,9 @@
 //! Routines to convert TPCH types to Arrow types
 
 use arrow::array::{StringViewArray, StringViewBuilder};
+use benchseed_tpch::dates::TPCHDate;
+use benchseed_tpch::decimal::TPCHDecimal;
 use std::fmt::Write;
-use benchseed-tpch::dates::TPCHDate;
-use benchseed-tpch::decimal::TPCHDecimal;
 
 /// Convert a TPCHDecimal to an Arrow Decimal(15,2)
 #[inline(always)]
@@ -20,7 +20,7 @@ pub fn to_arrow_decimal(value: TPCHDecimal) -> i128 {
 ///
 /// ```
 /// use chrono::NaiveDate;
-/// use benchseed-tpch::dates::TPCHDate;
+/// use benchseed_tpch::dates::TPCHDate;
 /// let arrow_epoch = NaiveDate::from_ymd_opt(1970, 1, 1).unwrap();
 ///  let tpch_epoch = NaiveDate::from_ymd_opt(1992, 1, 1).unwrap();
 /// // the difference between the two epochs is 8035 days
@@ -68,7 +68,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use benchseed-tpch::dates::MIN_GENERATE_DATE;
+    use benchseed_tpch::dates::MIN_GENERATE_DATE;
 
     #[test]
     fn test_to_arrow_decimal() {

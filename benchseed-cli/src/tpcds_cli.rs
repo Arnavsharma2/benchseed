@@ -5,6 +5,8 @@ use crate::logging::configure_logging;
 use crate::progress::IndicatifProgress;
 use crate::progress::{no_op_progress_tracker, ProgressTracker};
 use crate::tpch_cli::{Compression, DEFAULT_PARQUET_ROW_GROUP_BYTES};
+use benchseed_tpcds::config::{CompatMode, Session, SessionBuilder, Table};
+use benchseed_tpcds::error::TpcdsError;
 use clap::builder::TypedValueParser;
 use clap::{ArgAction, Args, Subcommand};
 use std::collections::HashSet;
@@ -13,8 +15,6 @@ use std::io;
 use std::io::IsTerminal;
 use std::path::PathBuf;
 use std::sync::Arc;
-use benchseed-tpcds::config::{CompatMode, Session, SessionBuilder, Table};
-use benchseed-tpcds::error::TpcdsError;
 
 pub mod csv;
 pub mod dat;

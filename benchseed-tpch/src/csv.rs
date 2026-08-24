@@ -8,8 +8,8 @@ use std::fmt::Display;
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::NationGenerator;
-/// # use benchseed-tpch::csv::NationCsv;
+/// # use benchseed_tpch::generators::NationGenerator;
+/// # use benchseed_tpch::csv::NationCsv;
 /// # use std::fmt::Write;
 /// // Output the first 3 rows in CSV format
 /// let generator = NationGenerator::default();
@@ -72,8 +72,8 @@ impl Display for NationCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::{RegionGenerator};
-/// # use benchseed-tpch::csv::{NationCsv, RegionCsv};
+/// # use benchseed_tpch::generators::{RegionGenerator};
+/// # use benchseed_tpch::csv::{NationCsv, RegionCsv};
 /// # use std::fmt::Write;
 /// let generator = RegionGenerator::default();
 /// // Output the first 3 rows in CSV format
@@ -136,8 +136,8 @@ impl Display for RegionCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::PartGenerator;
-/// # use benchseed-tpch::csv::PartCsv;
+/// # use benchseed_tpch::generators::PartGenerator;
+/// # use benchseed_tpch::csv::PartCsv;
 /// # use std::fmt::Write;
 /// // Output the first 3 rows in CSV format
 /// let generator = PartGenerator::new(1.0, 1, 1);
@@ -208,8 +208,8 @@ impl Display for PartCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::SupplierGenerator;
-/// # use benchseed-tpch::csv::SupplierCsv;
+/// # use benchseed_tpch::generators::SupplierGenerator;
+/// # use benchseed_tpch::csv::SupplierCsv;
 /// # use std::fmt::Write;
 /// // Output the first 3 rows in CSV format
 /// let generator = SupplierGenerator::new(1.0, 1, 1);
@@ -278,8 +278,8 @@ impl Display for SupplierCsv {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::CustomerGenerator;
-/// # use benchseed-tpch::csv::CustomerCsv;
+/// # use benchseed_tpch::generators::CustomerGenerator;
+/// # use benchseed_tpch::csv::CustomerCsv;
 /// # use std::fmt::Write;
 /// // Output the first 3 rows in CSV format
 /// let generator = CustomerGenerator::new(1.0, 1, 1);
@@ -349,8 +349,8 @@ impl Display for CustomerCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::PartSuppGenerator;
-/// # use benchseed-tpch::csv::PartSuppCsv;
+/// # use benchseed_tpch::generators::PartSuppGenerator;
+/// # use benchseed_tpch::csv::PartSuppCsv;
 /// # use std::fmt::Write;
 /// // Output the first 3 rows in CSV format
 /// let generator = PartSuppGenerator::new(1.0, 1, 1);
@@ -417,8 +417,8 @@ impl Display for PartSuppCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::OrderGenerator;
-/// # use benchseed-tpch::csv::OrderCsv;
+/// # use benchseed_tpch::generators::OrderGenerator;
+/// # use benchseed_tpch::csv::OrderCsv;
 /// # use std::fmt::Write;
 /// // Output the first 3 rows in CSV format
 /// let generator = OrderGenerator::new(1.0, 1, 1);
@@ -489,8 +489,8 @@ impl Display for OrderCsv<'_> {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::LineItemGenerator;
-/// # use benchseed-tpch::csv::LineItemCsv;
+/// # use benchseed_tpch::generators::LineItemGenerator;
+/// # use benchseed_tpch::csv::LineItemCsv;
 /// # use std::fmt::Write;
 /// // Output the first 3 rows in CSV format
 /// let generator = LineItemGenerator::new(1.0, 1, 1);

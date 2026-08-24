@@ -5,8 +5,8 @@
 //! way. Keeping that in one place stops the two from drifting.
 
 use crate::progress::{ProgressHandle, ProgressTracker};
+use benchseed_tpcds::config::{Session, Table};
 use std::sync::Arc;
-use benchseed-tpcds::config::{Session, Table};
 
 /// Progress handles for one requested table.
 ///

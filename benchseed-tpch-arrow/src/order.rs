@@ -6,16 +6,16 @@ use arrow::array::{Date32Array, Int32Array, Int64Array, RecordBatch, StringViewA
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpch::generators::{OrderGenerator, OrderGeneratorIterator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpch::generators::{OrderGenerator, OrderGeneratorIterator};
 
 /// Generate [`Order`]s in [`RecordBatch`] format
 ///
-/// [`Order`]: benchseed-tpch::generators::Order
+/// [`Order`]: benchseed_tpch::generators::Order
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::{OrderGenerator};
+/// # use benchseed_tpch::generators::{OrderGenerator};
 /// # use benchseed_tpch_arrow::OrderArrow;
 ///
 /// // Create a SF=1.0 generator and wrap it in an Arrow generator

@@ -1,14 +1,14 @@
 use super::test_helpers::{expect_row_group_sizes, RowGroups};
 use arrow::record_batch::RecordBatchReader;
 use assert_cmd::cargo::cargo_bin_cmd;
+use benchseed_tpch::generators::OrderGenerator;
+use benchseed_tpch_arrow::OrderArrow;
 use parquet::arrow::arrow_reader::{ArrowReaderOptions, ParquetRecordBatchReaderBuilder};
 use std::fs;
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 use tempfile::tempdir;
-use benchseed-tpch::generators::OrderGenerator;
-use benchseed_tpch_arrow::OrderArrow;
 
 /// Test the TPC-H command forms for the `benchseed-cli` binary.
 #[test]

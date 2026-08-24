@@ -1,11 +1,11 @@
 //! Implementations of [`Source`] for generating data in TBL format
 
 use super::generate::Source;
-use std::io::Write;
-use benchseed-tpch::generators::{
+use benchseed_tpch::generators::{
     CustomerGenerator, LineItemGenerator, NationGenerator, OrderGenerator, PartGenerator,
     PartSuppGenerator, RegionGenerator, SupplierGenerator,
 };
+use std::io::Write;
 
 /// Define a Source that writes the table in TBL format
 macro_rules! define_tbl_source {

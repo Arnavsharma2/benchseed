@@ -4,6 +4,8 @@ use arrow::compute::concat_batches;
 use arrow::datatypes::{DataType, TimeUnit};
 use arrow::record_batch::RecordBatchReader;
 use assert_cmd::cargo::cargo_bin_cmd;
+use benchseed_tpcds::config::{Session, SessionBuilder, Table};
+use benchseed_tpcds_arrow::{StoreReturnsArrow, StoreSalesArrow};
 use parquet::arrow::arrow_reader::ParquetRecordBatchReaderBuilder;
 use parquet::basic::Compression;
 use parquet::file::metadata::ParquetMetaDataReader;
@@ -12,8 +14,6 @@ use std::fs;
 use std::fs::File;
 use std::path::Path;
 use tempfile::tempdir;
-use benchseed-tpcds::config::{Session, SessionBuilder, Table};
-use benchseed_tpcds_arrow::{StoreReturnsArrow, StoreSalesArrow};
 
 /// Test that TPC-DS DAT generation is quiet unless logging is explicitly enabled.
 #[test]
@@ -553,7 +553,7 @@ fn test_benchseed_cli_tpcds_dat_individual_table_selection_outputs_requested_tab
     }
 }
 
-/// Test that TPC-DS DAT generation forwards compatibility mode to benchseed-tpcds.
+/// Test that TPC-DS DAT generation forwards compatibility mode to benchseed_tpcds.
 #[test]
 fn test_benchseed_cli_tpcds_dat_compat_mode() {
     let temp_dir = tempdir().expect("Failed to create temporary directory");

@@ -6,7 +6,7 @@
 //!
 //! # Example
 //! ```
-//! # use benchseed-tpch::generators::LineItemGenerator;
+//! # use benchseed_tpch::generators::LineItemGenerator;
 //! # use benchseed_tpch_arrow::LineItemArrow;
 //! # use arrow::util::pretty::pretty_format_batches;
 //! // Create a SF=1 generator for the LineItem table

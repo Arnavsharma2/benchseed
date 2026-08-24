@@ -1,13 +1,13 @@
 //! Consistence and conformance test suite that runs against Trino's TPCH
 //! Java implementation.
+use benchseed_tpch::generators::{
+    CustomerGenerator, LineItemGenerator, NationGenerator, OrderGenerator, PartGenerator,
+    PartSuppGenerator, RegionGenerator, SupplierGenerator,
+};
 use flate2::read::GzDecoder;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
-use benchseed-tpch::generators::{
-    CustomerGenerator, LineItemGenerator, NationGenerator, OrderGenerator, PartGenerator,
-    PartSuppGenerator, RegionGenerator, SupplierGenerator,
-};
 
 fn read_tbl_gz<P: AsRef<Path>>(path: P) -> Vec<String> {
     let file = File::open(path).expect("Failed to open file");

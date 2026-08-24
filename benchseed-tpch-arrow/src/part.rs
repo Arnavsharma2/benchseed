@@ -4,16 +4,16 @@ use arrow::array::{Int32Array, Int64Array, RecordBatch, StringViewArray};
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpch::generators::{PartGenerator, PartGeneratorIterator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpch::generators::{PartGenerator, PartGeneratorIterator};
 
 /// Generate [`Part`]s in [`RecordBatch`] format
 ///
-/// [`Part`]: benchseed-tpch::generators::Part
+/// [`Part`]: benchseed_tpch::generators::Part
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::{PartGenerator};
+/// # use benchseed_tpch::generators::{PartGenerator};
 /// # use benchseed_tpch_arrow::PartArrow;
 ///
 /// // Create a SF=1.0 generator and wrap it in an Arrow generator

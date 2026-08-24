@@ -24,10 +24,10 @@ use std::io;
 use std::path::PathBuf;
 use std::sync::Arc;
 
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::error::InvalidOptionError;
-use benchseed-tpcds::output::DatWriter;
-use benchseed-tpcds::row::GeneratedRow;
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::error::InvalidOptionError;
+use benchseed_tpcds::output::DatWriter;
+use benchseed_tpcds::row::GeneratedRow;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 

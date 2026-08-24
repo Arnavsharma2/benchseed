@@ -6,12 +6,7 @@ use crate::progress::{ProgressHandle, ProgressTracker};
 use crate::temp_path::inprogress_path;
 use crate::worker_queue::WorkerQueue;
 use arrow::record_batch::RecordBatchReader;
-use parquet::basic::Compression;
-use std::fs::File;
-use std::io::{self, BufWriter};
-use std::path::PathBuf;
-use std::sync::Arc;
-use benchseed-tpcds::config::{Session, Table};
+use benchseed_tpcds::config::{Session, Table};
 use benchseed_tpcds_arrow::{
     CallCenterArrow, CatalogPageArrow, CatalogReturnsArrow, CatalogSalesArrow,
     CustomerAddressArrow, CustomerArrow, CustomerDemographicsArrow, DateDimArrow,
@@ -19,6 +14,11 @@ use benchseed_tpcds_arrow::{
     PromotionArrow, ReasonArrow, ShipModeArrow, StoreArrow, StoreReturnsArrow, StoreSalesArrow,
     TimeDimArrow, WarehouseArrow, WebPageArrow, WebReturnsArrow, WebSalesArrow, WebSiteArrow,
 };
+use parquet::basic::Compression;
+use std::fs::File;
+use std::io::{self, BufWriter};
+use std::path::PathBuf;
+use std::sync::Arc;
 
 /// Parquet output generator.
 #[derive(Debug, Clone)]

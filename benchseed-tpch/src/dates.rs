@@ -76,7 +76,7 @@ impl GenerateUtils {
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::dates::{TPCHDate, MIN_GENERATE_DATE};
+/// # use benchseed_tpch::dates::{TPCHDate, MIN_GENERATE_DATE};
 /// let date = TPCHDate::new(MIN_GENERATE_DATE + 41);
 /// // Convert the date to y/m/d fields
 /// assert_eq!((92,2,11), date.to_ymd());

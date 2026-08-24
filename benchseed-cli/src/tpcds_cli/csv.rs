@@ -1,13 +1,13 @@
 //! TPC-DS CSV output.
 //!
-//! Rows are formatted via the `benchseed-tpcds::csv` Display wrappers (the same
+//! Rows are formatted via the `benchseed_tpcds::csv` Display wrappers (the same
 //! model as the TPC-H CSV output): one header line, then one line per row
 //! with the same field values as the DAT output, joined by the delimiter
 //! with no trailing separator. Free-text columns that can contain the
 //! delimiter are double-quoted.
 //!
 //! Two deliberate differences from the DAT output, documented in more detail
-//! on `benchseed-tpcds::csv`:
+//! on `benchseed_tpcds::csv`:
 //!
 //! * Output is UTF-8 in both compat modes, where the DAT output is ISO-8859-1
 //!   in `CompatMode::Trino`. The values match as characters, not as bytes.
@@ -19,13 +19,13 @@ use crate::progress::ProgressTracker;
 use crate::temp_path::inprogress_path;
 use crate::tpcds_cli::generate::{generate_table, TableOutput, TableWriter};
 use crate::tpcds_cli::progress::{register_table, TableProgress};
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::csv::{csv_header, GeneratedRowCsv};
+use benchseed_tpcds::row::GeneratedRow;
 use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use std::path::PathBuf;
 use std::sync::Arc;
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::csv::{csv_header, GeneratedRowCsv};
-use benchseed-tpcds::row::GeneratedRow;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 

@@ -3,16 +3,16 @@ use arrow::array::{Int64Array, RecordBatch, StringViewArray};
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpch::generators::{RegionGenerator, RegionGeneratorIterator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpch::generators::{RegionGenerator, RegionGeneratorIterator};
 
 /// Generate  [`Region`]s in [`RecordBatch`] format
 ///
-/// [`Region`]: benchseed-tpch::generators::Region
+/// [`Region`]: benchseed_tpch::generators::Region
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::{RegionGenerator};
+/// # use benchseed_tpch::generators::{RegionGenerator};
 /// # use benchseed_tpch_arrow::RegionArrow;
 ///
 /// // Create a SF=1.0 generator and wrap it in an Arrow generator

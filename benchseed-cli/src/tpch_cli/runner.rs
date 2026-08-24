@@ -13,12 +13,7 @@ use crate::tpch_cli::tbl::{LineItemTblSource, NationTblSource, RegionTblSource};
 use crate::tpch_cli::{OutputFormat, Table, WriterSink};
 use crate::worker_queue::WorkerQueue;
 use arrow::record_batch::RecordBatchReader;
-use log::{debug, info};
-use std::collections::BTreeMap;
-use std::io;
-use std::io::BufWriter;
-use std::sync::Arc;
-use benchseed-tpch::generators::{
+use benchseed_tpch::generators::{
     CustomerGenerator, LineItemGenerator, NationGenerator, OrderGenerator, PartGenerator,
     PartSuppGenerator, RegionGenerator, SupplierGenerator,
 };
@@ -26,6 +21,11 @@ use benchseed_tpch_arrow::{
     CustomerArrow, LineItemArrow, NationArrow, OrderArrow, PartArrow, PartSuppArrow, RegionArrow,
     SupplierArrow,
 };
+use log::{debug, info};
+use std::collections::BTreeMap;
+use std::io;
+use std::io::BufWriter;
+use std::sync::Arc;
 
 /// Runs multiple [`OutputPlan`]s in parallel, managing the number of threads
 /// used to run them.

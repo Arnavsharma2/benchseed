@@ -4,9 +4,9 @@ use arrow::array::{Int64Array, RecordBatch};
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::row::{GeneratedRow, ShipModeRowGenerator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::row::{GeneratedRow, ShipModeRowGenerator};
 
 pub struct ShipModeArrow {
     inner: RowIter<ShipModeRowGenerator>,

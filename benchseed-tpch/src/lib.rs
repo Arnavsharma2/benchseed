@@ -6,7 +6,7 @@
 //!
 //! # Example: TBL output format
 //! ```
-//! # use benchseed-tpch::generators::LineItemGenerator;
+//! # use benchseed_tpch::generators::LineItemGenerator;
 //! // Create Generator for the LINEITEM table at Scale Factor 1 (SF 1)
 //! let scale_factor = 1.0;
 //! let part = 1;

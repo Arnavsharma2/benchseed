@@ -4,16 +4,16 @@ use arrow::array::{Int64Array, RecordBatch};
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpch::generators::{SupplierGenerator, SupplierGeneratorIterator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpch::generators::{SupplierGenerator, SupplierGeneratorIterator};
 
 /// Generate [`Supplier`]s in [`RecordBatch`] format
 ///
-/// [`Supplier`]: benchseed-tpch::generators::Supplier
+/// [`Supplier`]: benchseed_tpch::generators::Supplier
 ///
 /// # Example:
 /// ```
-/// # use benchseed-tpch::generators::{SupplierGenerator};
+/// # use benchseed_tpch::generators::{SupplierGenerator};
 /// # use benchseed_tpch_arrow::SupplierArrow;
 ///
 /// // Create a SF=1.0 generator and wrap it in an Arrow generator

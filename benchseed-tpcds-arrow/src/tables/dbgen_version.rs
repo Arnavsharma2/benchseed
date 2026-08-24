@@ -4,9 +4,9 @@ use arrow::array::{Date32Array, RecordBatch, Time32SecondArray};
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef, TimeUnit};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::row::{DbgenVersionRowGenerator, GeneratedRow};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::row::{DbgenVersionRowGenerator, GeneratedRow};
 
 pub struct DbgenVersionArrow {
     inner: RowIter<DbgenVersionRowGenerator>,

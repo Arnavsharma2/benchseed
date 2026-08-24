@@ -1,7 +1,7 @@
 //! [`TpcdsGenerationPlan`]: row group layout for TPC-DS Parquet files.
 
+use benchseed_tpcds::config::{Scaling, Table};
 use std::ops::RangeInclusive;
-use benchseed-tpcds::config::{Scaling, Table};
 
 /// Parquet files can have at most 32767 row groups
 const MAX_ROW_GROUPS: i64 = 32767;

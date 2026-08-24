@@ -1,9 +1,9 @@
 //! Binary entry point for the TPC-H and TPC-DS data generator.
 
-use clap::{Parser, Subcommand};
-use std::process::ExitCode;
 use benchseed_cli::tpcds_cli::Cli as TpcdsCli;
 use benchseed_cli::tpch_cli::Cli as TpchCli;
+use clap::{Parser, Subcommand};
+use std::process::ExitCode;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 

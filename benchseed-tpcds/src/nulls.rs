@@ -39,9 +39,9 @@ use crate::table::Table;
 /// # Examples
 ///
 /// ```
-/// use benchseed-tpcds::table::Table;
-/// use benchseed-tpcds::random::RandomNumberStreamImpl;
-/// use benchseed-tpcds::nulls::create_null_bit_map;
+/// use benchseed_tpcds::table::Table;
+/// use benchseed_tpcds::random::RandomNumberStreamImpl;
+/// use benchseed_tpcds::nulls::create_null_bit_map;
 ///
 /// let mut stream = RandomNumberStreamImpl::new(1).unwrap();
 /// let null_bitmap = create_null_bit_map(Table::CallCenter, &mut stream);

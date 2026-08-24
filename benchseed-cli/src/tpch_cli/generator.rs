@@ -6,6 +6,8 @@ use super::statistics::WriteStatistics;
 use crate::parquet::IntoSize;
 use crate::progress::{no_op_progress_tracker, ProgressTracker};
 pub use ::parquet::basic::Compression;
+use benchseed_tpch::distribution::Distributions;
+use benchseed_tpch::text::TextPool;
 use log::info;
 use std::fmt::Display;
 use std::fs::File;
@@ -14,8 +16,6 @@ use std::io::{BufWriter, Stdout, Write};
 use std::str::FromStr;
 use std::sync::Arc;
 use std::time::Instant;
-use benchseed-tpch::distribution::Distributions;
-use benchseed-tpch::text::TextPool;
 
 /// Wrapper around a buffer writer that counts the number of buffers and bytes written
 pub struct WriterSink<W: Write> {

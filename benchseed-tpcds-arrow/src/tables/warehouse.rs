@@ -4,9 +4,9 @@ use arrow::array::{Int32Array, Int64Array, RecordBatch};
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::row::{GeneratedRow, WarehouseRowGenerator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::row::{GeneratedRow, WarehouseRowGenerator};
 
 pub struct WarehouseArrow {
     inner: RowIter<WarehouseRowGenerator>,
@@ -72,7 +72,7 @@ impl Iterator for WarehouseArrow {
         let mut w_id: Vec<Option<String>> = Vec::with_capacity(rows.len());
         let mut w_name: Vec<Option<String>> = Vec::with_capacity(rows.len());
         let mut w_sq_ft: Vec<Option<i32>> = Vec::with_capacity(rows.len());
-        let mut addr_rows: Vec<(benchseed-tpcds::types::Address, i64, u32)> =
+        let mut addr_rows: Vec<(benchseed_tpcds::types::Address, i64, u32)> =
             Vec::with_capacity(rows.len());
 
         for r in &rows {

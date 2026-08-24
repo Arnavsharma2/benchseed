@@ -4,12 +4,10 @@
 use arrow::array::RecordBatch;
 use arrow::datatypes::SchemaRef;
 use arrow::record_batch::RecordBatchReader;
-use std::io::Write;
-use std::sync::Arc;
-use benchseed-tpch::csv::{
+use benchseed_tpch::csv::{
     CustomerCsv, LineItemCsv, NationCsv, OrderCsv, PartCsv, PartSuppCsv, RegionCsv, SupplierCsv,
 };
-use benchseed-tpch::generators::{
+use benchseed_tpch::generators::{
     Customer, CustomerGenerator, LineItem, LineItemGenerator, Nation, NationGenerator, Order,
     OrderGenerator, Part, PartGenerator, PartSupp, PartSuppGenerator, Region, RegionGenerator,
     Supplier, SupplierGenerator,
@@ -18,6 +16,8 @@ use benchseed_tpch_arrow::{
     CustomerArrow, LineItemArrow, NationArrow, OrderArrow, PartArrow, PartSuppArrow, RegionArrow,
     SupplierArrow,
 };
+use std::io::Write;
+use std::sync::Arc;
 
 /// Macro that defines tests for tbl for a given type
 macro_rules! test_row_type {

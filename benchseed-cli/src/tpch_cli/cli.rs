@@ -438,7 +438,14 @@ mod tests {
     #[test]
     fn tables_deduplicates_values_from_repeated_flags_and_aliases() {
         let cli = Cli::try_parse_from([
-            "benchseed-tpch", "tbl", "--tables", "region,r", "--tables", "nation", "--tables", "region",
+            "benchseed-tpch",
+            "tbl",
+            "--tables",
+            "region,r",
+            "--tables",
+            "nation",
+            "--tables",
+            "region",
         ])
         .unwrap();
         let Some(Commands::Tbl(args)) = cli.command else {

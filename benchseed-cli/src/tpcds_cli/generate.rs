@@ -7,11 +7,11 @@
 //! drift apart.
 
 use super::progress::TableProgress;
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::row::*;
 use log::info;
 use std::io;
 use std::path::PathBuf;
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::row::*;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 

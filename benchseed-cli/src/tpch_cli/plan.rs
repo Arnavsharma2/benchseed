@@ -1,12 +1,12 @@
 //! * [`GenerationPlan`]: how to generate a specific TPC-H dataset.
 
 use crate::tpch_cli::{OutputFormat, Table};
+use benchseed_tpch::generators::{
+    CustomerGenerator, OrderGenerator, PartGenerator, PartSuppGenerator, SupplierGenerator,
+};
 use log::debug;
 use std::fmt::Display;
 use std::ops::RangeInclusive;
-use benchseed-tpch::generators::{
-    CustomerGenerator, OrderGenerator, PartGenerator, PartSuppGenerator, SupplierGenerator,
-};
 
 /// A list of generator "parts" (data generator chunks, not TPCH parts) for a
 /// single output file.

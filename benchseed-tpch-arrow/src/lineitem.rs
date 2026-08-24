@@ -6,16 +6,16 @@ use arrow::array::{
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpch::generators::{LineItemGenerator, LineItemGeneratorIterator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpch::generators::{LineItemGenerator, LineItemGeneratorIterator};
 
 /// Generate  [`LineItem`]s in [`RecordBatch`] format
 ///
-/// [`LineItem`]: benchseed-tpch::generators::LineItem
+/// [`LineItem`]: benchseed_tpch::generators::LineItem
 ///
 /// # Example
 /// ```
-/// # use benchseed-tpch::generators::LineItemGenerator;
+/// # use benchseed_tpch::generators::LineItemGenerator;
 /// # use benchseed_tpch_arrow::LineItemArrow;
 ///
 /// // Create a SF=1.0 generator and wrap it in an Arrow generator

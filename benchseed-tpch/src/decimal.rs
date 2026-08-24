@@ -16,7 +16,7 @@ impl TPCHDecimal {
     ///
     /// # Example
     /// ```
-    /// use benchseed-tpch::decimal::TPCHDecimal;
+    /// use benchseed_tpch::decimal::TPCHDecimal;
     /// let decimal = TPCHDecimal::new(1234);
     /// assert_eq!(decimal.to_string(), "12.34");
     /// ```

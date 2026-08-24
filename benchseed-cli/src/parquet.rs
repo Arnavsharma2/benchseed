@@ -185,14 +185,14 @@ where
 mod tests {
     use super::*;
     use crate::progress::{ProgressHandle, ProgressTracker};
+    use benchseed_tpch::generators::RegionGenerator;
+    use benchseed_tpch_arrow::RegionArrow;
     use std::fs::File;
     use std::io::BufWriter;
     use std::sync::{
         atomic::{AtomicU64, Ordering},
         Arc,
     };
-    use benchseed-tpch::generators::RegionGenerator;
-    use benchseed_tpch_arrow::RegionArrow;
 
     #[derive(Debug, Default)]
     struct CountingProgress {

@@ -7,9 +7,9 @@ use arrow::array::{Date32Array, Decimal128Array, Int32Array, Int64Array, RecordB
 use arrow::datatypes::{DataType, Field, Schema, SchemaRef};
 use arrow::error::ArrowError;
 use arrow::record_batch::RecordBatchReader;
+use benchseed_tpcds::config::{Session, Table};
+use benchseed_tpcds::row::{GeneratedRow, StoreRowGenerator};
 use std::sync::{Arc, LazyLock};
-use benchseed-tpcds::config::{Session, Table};
-use benchseed-tpcds::row::{GeneratedRow, StoreRowGenerator};
 
 pub struct StoreArrow {
     inner: RowIter<StoreRowGenerator>,
@@ -89,7 +89,7 @@ impl Iterator for StoreArrow {
         let mut s_division_name: Vec<Option<String>> = Vec::with_capacity(rows.len());
         let mut s_company_id: Vec<Option<i64>> = Vec::with_capacity(rows.len());
         let mut s_company_name: Vec<Option<String>> = Vec::with_capacity(rows.len());
-        let mut addr_rows: Vec<(benchseed-tpcds::types::Address, i64, u32)> =
+        let mut addr_rows: Vec<(benchseed_tpcds::types::Address, i64, u32)> =
             Vec::with_capacity(rows.len());
         let mut s_tax_pct: Vec<Option<i128>> = Vec::with_capacity(rows.len());
 

@@ -37,8 +37,8 @@ use crate::random::{RandomNumberStream, RandomValueGenerator};
 /// # Examples
 ///
 /// ```
-/// use benchseed-tpcds::random::RandomNumberStreamImpl;
-/// use benchseed-tpcds::permutations::make_permutation;
+/// use benchseed_tpcds::random::RandomNumberStreamImpl;
+/// use benchseed_tpcds::permutations::make_permutation;
 ///
 /// let mut stream = RandomNumberStreamImpl::new(1).unwrap();
 /// let perm = make_permutation(5, &mut stream);
@@ -80,7 +80,7 @@ pub fn make_permutation(size: usize, stream: &mut dyn RandomNumberStream) -> Vec
 /// # Examples
 ///
 /// ```
-/// use benchseed-tpcds::permutations::get_permutation_entry;
+/// use benchseed_tpcds::permutations::get_permutation_entry;
 ///
 /// let perm = vec![2, 0, 1, 3];
 /// let value = get_permutation_entry(&perm, 1);

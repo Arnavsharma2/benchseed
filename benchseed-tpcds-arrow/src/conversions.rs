@@ -1,7 +1,7 @@
 //! Routines to convert TPC-DS types to Arrow types
 
 use arrow::array::{Decimal128Array, Int32Array, StringViewArray, StringViewBuilder};
-use benchseed-tpcds::types::{Address, Date, Decimal};
+use benchseed_tpcds::types::{Address, Date, Decimal};
 
 /// Julian day number for the Unix epoch (1970-01-01)
 const UNIX_EPOCH_JULIAN: i32 = 2440588;

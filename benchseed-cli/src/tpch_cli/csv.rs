@@ -1,13 +1,13 @@
 //! Implementations of [`Source`] for generating data in TBL format
 use super::generate::Source;
-use std::io::Write;
-use benchseed-tpch::csv::{
+use benchseed_tpch::csv::{
     CustomerCsv, LineItemCsv, NationCsv, OrderCsv, PartCsv, PartSuppCsv, RegionCsv, SupplierCsv,
 };
-use benchseed-tpch::generators::{
+use benchseed_tpch::generators::{
     CustomerGenerator, LineItemGenerator, NationGenerator, OrderGenerator, PartGenerator,
     PartSuppGenerator, RegionGenerator, SupplierGenerator,
 };
+use std::io::Write;
 
 /// Define a Source that writes the table in CSV format
 macro_rules! define_csv_source {
