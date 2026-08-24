@@ -1,0 +1,13 @@
+BenchSeed
+
+This product includes software developed by the tpchgen-rs project:
+https://github.com/clflushopt/tpchgen-rs
+
+The initial source snapshot was imported from upstream commit
+7e64184d25648ffa8db4575bc683a24d23f60297 under the Apache License, Version
+2.0. The original project was developed by clflushopt, alamb, and other
+contributors listed in the upstream repository.
+
+This derivative is independently maintained and is not affiliated with or
+endorsed by the upstream maintainers or the Transaction Processing Performance
+Council (TPC).

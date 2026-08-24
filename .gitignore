@@ -1,0 +1,8 @@
+debug/
+target/
+__old/
+Cargo.lock
+.idea
+.venv/
+/tpcds/
+.claude/

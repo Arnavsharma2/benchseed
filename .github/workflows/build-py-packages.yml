@@ -1,0 +1,139 @@
+name: Build Python Packages
+
+on:
+  workflow_call:
+    inputs:
+      upload-artifacts:
+        description: "Whether to upload built distributions as artifacts"
+        required: false
+        default: false
+        type: boolean
+      package:
+        description: "Package to build: all, tpchgen-cli, or tpcgen-cli"
+        required: false
+        default: all
+        type: string
+
+jobs:
+  wheels:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          # Linux manylinux
+          - runner: ubuntu-22.04
+            target: x86_64
+            manylinux: auto
+            os: linux
+          - runner: ubuntu-22.04
+            target: x86
+            manylinux: auto
+            os: linux
+          - runner: ubuntu-22.04
+            target: aarch64
+            manylinux: auto
+            os: linux
+          - runner: ubuntu-22.04
+            target: armv7
+            manylinux: auto
+            os: linux
+          - runner: ubuntu-22.04
+            target: ppc64le
+            manylinux: auto
+            os: linux
+
+          # Linux musllinux
+          - runner: ubuntu-22.04
+            target: x86_64
+            manylinux: musllinux_1_2
+            os: musllinux
+          - runner: ubuntu-22.04
+            target: x86
+            manylinux: musllinux_1_2
+            os: musllinux
+          - runner: ubuntu-22.04
+            target: aarch64
+            manylinux: musllinux_1_2
+            os: musllinux
+          - runner: ubuntu-22.04
+            target: armv7
+            manylinux: musllinux_1_2
+            os: musllinux
+
+          # Windows
+          - runner: windows-latest
+            target: x64
+            os: windows
+          - runner: windows-latest
+            target: x86
+            os: windows
+
+          # macOS
+          - runner: macos-14
+            target: aarch64
+            os: macos
+          - runner: macos-15-intel
+            target: x86_64
+            os: macos
+
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build tpchgen-cli wheel
+        if: ${{ inputs.package == 'all' || inputs.package == 'tpchgen-cli' }}
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          args: --release --out dist
+          working-directory: tpchgen-cli
+          manylinux: ${{ matrix.manylinux || '' }}
+      - name: Build tpcgen-cli wheel
+        if: ${{ inputs.package == 'all' || inputs.package == 'tpcgen-cli' }}
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          args: --release --out dist
+          working-directory: tpcgen-cli
+          manylinux: ${{ matrix.manylinux || '' }}
+      - name: Upload tpchgen-cli wheels
+        if: ${{ inputs.upload-artifacts && (inputs.package == 'all' || inputs.package == 'tpchgen-cli') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.target }}
+          path: tpchgen-cli/dist
+      - name: Upload tpcgen-cli wheels
+        if: ${{ inputs.upload-artifacts && (inputs.package == 'all' || inputs.package == 'tpcgen-cli') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: wheels-tpcgen-cli-${{ matrix.os }}-${{ matrix.target }}
+          path: tpcgen-cli/dist
+
+  sdist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build tpchgen-cli sdist
+        if: ${{ inputs.package == 'all' || inputs.package == 'tpchgen-cli' }}
+        uses: PyO3/maturin-action@v1
+        with:
+          command: sdist
+          args: --out dist
+          working-directory: tpchgen-cli
+      - name: Build tpcgen-cli sdist
+        if: ${{ inputs.package == 'all' || inputs.package == 'tpcgen-cli' }}
+        uses: PyO3/maturin-action@v1
+        with:
+          command: sdist
+          args: --out dist
+          working-directory: tpcgen-cli
+      - name: Upload tpchgen-cli sdist
+        if: ${{ inputs.upload-artifacts && (inputs.package == 'all' || inputs.package == 'tpchgen-cli') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: wheels-sdist
+          path: tpchgen-cli/dist
+      - name: Upload tpcgen-cli sdist
+        if: ${{ inputs.upload-artifacts && (inputs.package == 'all' || inputs.package == 'tpcgen-cli') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: sdist-tpcgen-cli
+          path: tpcgen-cli/dist

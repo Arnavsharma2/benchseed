@@ -1,0 +1,84 @@
+name: TPC-DS Conformance
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'tpcdsgen/**'
+      - 'tpcgen-cli/**'
+      - '.github/**'
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # Conformance testing against the Java / Trino reference implementation.
+  conformance-tests:
+    name: Conformance Tests (Java)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Install Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Cache Rust dependencies
+      uses: actions/cache@v6
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-
+
+    - name: Build Rust table generators
+      run: |
+        cargo build --release -p tpcgen-cli
+
+    - name: Run conformance tests (Rust vs Java)
+      run: |
+        cd tpcgen-cli
+        ./scripts/tpcds/compare-all-tables.sh
+
+  # Conformance testing against the C dsdgen reference implementation.
+  conformance-tests-c:
+    name: Conformance Tests (C dsdgen)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Install Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Cache Rust dependencies
+      uses: actions/cache@v6
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-
+
+    - name: Build Rust table generators
+      run: |
+        cargo build --release -p tpcgen-cli
+
+    - name: Run conformance tests (Rust --compat c vs C dsdgen)
+      run: |
+        cd tpcgen-cli
+        ./scripts/tpcds/compare-all-tables.sh --compat c
