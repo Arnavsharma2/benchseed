@@ -128,21 +128,20 @@ impl TextPool {
         random: &mut RowRandomInt,
     ) {
         let syntax = distributions.noun_phrase().random_value(random);
-        let max_length = syntax.len();
 
-        for c in syntax.chars().take(max_length) {
-            let source = match c {
-                'A' => distributions.articles(),
-                'J' => distributions.adjectives(),
-                'D' => distributions.adverbs(),
-                'N' => distributions.nouns(),
-                ',' => {
+        for &token in syntax.as_bytes() {
+            let source = match token {
+                b'A' => distributions.articles(),
+                b'J' => distributions.adjectives(),
+                b'D' => distributions.adverbs(),
+                b'N' => distributions.nouns(),
+                b',' => {
                     output.pop().expect("at least one byte");
                     output.extend_from_slice(b", ");
                     continue;
                 }
-                ' ' => continue,
-                c => panic!("Unknown token '{}'", c),
+                b' ' => continue,
+                token => panic!("Unknown token '{}'", token as char),
             };
 
             // pick a random word
