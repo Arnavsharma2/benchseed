@@ -6,7 +6,6 @@
 use crate::progress::ProgressHandle;
 use futures::StreamExt;
 use log::debug;
-use std::collections::VecDeque;
 use std::io;
 use std::sync::{Arc, Mutex};
 use tokio::task::JoinSet;
@@ -142,18 +141,18 @@ where
 /// Clones share the same underlying recycler, so it is not thread safe
 #[derive(Debug, Clone)]
 struct BufferRecycler {
-    buffers: Arc<Mutex<VecDeque<Vec<u8>>>>,
+    buffers: Arc<Mutex<Vec<Vec<u8>>>>,
 }
 
 impl BufferRecycler {
     fn new() -> Self {
         Self {
-            buffers: Arc::new(Mutex::new(VecDeque::new())),
+            buffers: Arc::new(Mutex::new(Vec::new())),
         }
     }
     /// return a new empty buffer, with size bytes capacity
     fn new_buffer(&self, size: usize) -> Vec<u8> {
-        let recycled = self.buffers.lock().unwrap().pop_front();
+        let recycled = self.buffers.lock().unwrap().pop();
         if let Some(mut buffer) = recycled {
             buffer.clear();
             if size > buffer.capacity() {
@@ -167,7 +166,7 @@ impl BufferRecycler {
 
     fn return_buffer(&self, buffer: Vec<u8>) {
         let mut buffers = self.buffers.lock().unwrap();
-        buffers.push_back(buffer);
+        buffers.push(buffer);
     }
 }
 
