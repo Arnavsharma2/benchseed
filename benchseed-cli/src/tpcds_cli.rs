@@ -315,6 +315,7 @@ impl CommonArgs {
     /// Parquet has direct return-table generators and does not need expansion.
     fn row_generator_tables(&self) -> Result<Vec<Table>> {
         let mut tables = Vec::new();
+        let mut seen = HashSet::new();
         for table in self.tables()? {
             let table = match table {
                 Table::CatalogReturns => Table::CatalogSales,
@@ -322,7 +323,7 @@ impl CommonArgs {
                 Table::WebReturns => Table::WebSales,
                 table => table,
             };
-            if !tables.contains(&table) {
+            if seen.insert(table) {
                 tables.push(table);
             }
         }
