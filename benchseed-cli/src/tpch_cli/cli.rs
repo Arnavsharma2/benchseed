@@ -2,6 +2,7 @@ use super::{
     Compression, OutputFormat, Table, TpchGenerator, TpchGeneratorBuilder,
     DEFAULT_PARQUET_ROW_GROUP_BYTES,
 };
+use crate::delimiter::parse_delimiter;
 use crate::logging::configure_logging;
 #[cfg(feature = "indicatif-progress")]
 use crate::progress::IndicatifProgress;
@@ -274,38 +275,6 @@ struct ParquetArgs {
     /// Typical values range from 10MB to 100MB.
     #[arg(long, default_value_t = DEFAULT_PARQUET_ROW_GROUP_BYTES)]
     row_group_bytes: i64,
-}
-
-/// Parse a delimiter string, handling escape sequences.
-///
-/// The underlying arrow-csv writer requires an ASCII byte for the delimiter,
-/// so non-ASCII characters are rejected here rather than failing mid-generation.
-fn parse_delimiter(s: &str) -> Result<char, String> {
-    // Handle common escape sequences
-    let parsed = match s {
-        "\\t" => '\t',
-        "\\n" => '\n',
-        "\\r" => '\r',
-        "\\\\" => '\\',
-        _ => {
-            // If it's not an escape sequence, it should be a single character
-            let chars: Vec<char> = s.chars().collect();
-            if chars.len() != 1 {
-                return Err(format!(
-                    "Delimiter must be a single character or escape sequence (\\t, \\n, \\r, \\\\), got: '{}'",
-                    s
-                ));
-            }
-            chars[0]
-        }
-    };
-    if !parsed.is_ascii() {
-        return Err(format!(
-            "Delimiter must be an ASCII character, got: '{}'",
-            parsed
-        ));
-    }
-    Ok(parsed)
 }
 
 // TableValueParser is CLI-specific and uses the Table type from the library

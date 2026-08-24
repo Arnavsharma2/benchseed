@@ -1,4 +1,5 @@
 //! TPC-DS data generation CLI with a dbgen compatible API.
+use crate::delimiter::parse_delimiter;
 use crate::logging::configure_logging;
 #[cfg(feature = "indicatif-progress")]
 use crate::progress::IndicatifProgress;
@@ -436,32 +437,6 @@ fn expected_table_names() -> String {
         .map(Table::get_name)
         .collect::<Vec<_>>()
         .join(", ")
-}
-
-fn parse_delimiter(s: &str) -> std::result::Result<char, String> {
-    let parsed = match s {
-        "\\t" => '\t',
-        "\\n" => '\n',
-        "\\r" => '\r',
-        "\\\\" => '\\',
-        _ => {
-            let chars: Vec<char> = s.chars().collect();
-            if chars.len() != 1 {
-                return Err(format!(
-                    "Delimiter must be a single character or escape sequence (\\t, \\n, \\r, \\\\), got: '{}'",
-                    s
-                ));
-            }
-            chars[0]
-        }
-    };
-    if !parsed.is_ascii() {
-        return Err(format!(
-            "Delimiter must be an ASCII character, got: '{}'",
-            parsed
-        ));
-    }
-    Ok(parsed)
 }
 
 fn parse_row_group_bytes(s: &str) -> std::result::Result<usize, String> {
