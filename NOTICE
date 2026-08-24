@@ -14,3 +14,7 @@ Council (TPC).
 
 The derivative was renamed to BenchSeed. Package, crate, binary, workflow, and
 documentation identifiers were updated to use the BenchSeed brand.
+
+BenchSeed also restricts CSV delimiters to the table-safe set proposed in
+upstream issue #381:
+https://github.com/clflushopt/tpchgen-rs/issues/381
