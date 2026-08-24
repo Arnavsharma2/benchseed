@@ -11,3 +11,6 @@ contributors listed in the upstream repository.
 This derivative is independently maintained and is not affiliated with or
 endorsed by the upstream maintainers or the Transaction Processing Performance
 Council (TPC).
+
+The derivative was renamed to BenchSeed. Package, crate, binary, workflow, and
+documentation identifiers were updated to use the BenchSeed brand.
