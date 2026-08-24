@@ -158,8 +158,9 @@ impl Distribution {
 
     /// Checks if a line is an END marker.
     fn is_end(line: &str) -> bool {
-        let parts: Vec<&str> = line.split_whitespace().collect();
-        parts.first().is_some_and(|p| p.eq_ignore_ascii_case("END"))
+        line.split_whitespace()
+            .next()
+            .is_some_and(|part| part.eq_ignore_ascii_case("END"))
     }
 }
 
