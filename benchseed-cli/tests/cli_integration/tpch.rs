@@ -1170,6 +1170,28 @@ fn test_csv_subcommand_rejects_non_ascii_delimiter() {
         .stderr(predicates::str::contains("ASCII"));
 }
 
+/// Regression test for clflushopt/tpchgen-rs#381: unsafe delimiters can occur
+/// in unquoted values and produce rows with the wrong number of columns.
+#[test]
+fn test_csv_subcommand_rejects_unsafe_ascii_delimiter() {
+    let temp_dir = tempdir().expect("Failed to create temporary directory");
+
+    cargo_bin_cmd!("benchseed-cli")
+        .arg("tpch")
+        .arg("csv")
+        .arg("--delimiter")
+        .arg("-")
+        .arg("--scale-factor")
+        .arg("0.001")
+        .arg("--tables")
+        .arg("orders")
+        .arg("--output-dir")
+        .arg(temp_dir.path())
+        .assert()
+        .failure()
+        .stderr(predicates::str::contains("supported delimiters"));
+}
+
 /// Test that the `tbl` subcommand rejects --delimiter
 #[test]
 fn test_tbl_subcommand_rejects_delimiter() {

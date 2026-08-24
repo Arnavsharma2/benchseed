@@ -714,38 +714,18 @@ fn test_benchseed_cli_tpcds_csv_custom_delimiter() {
     );
 }
 
-/// Test that TPC-DS CSV generation escapes headers containing the delimiter.
+/// Regression test for clflushopt/tpchgen-rs#381: reject a delimiter that can
+/// occur in unquoted TPC-DS values.
 #[test]
-fn test_benchseed_cli_tpcds_csv_delimiter_in_header_is_escaped() {
-    let temp_dir = tempdir().expect("Failed to create temporary directory");
-
+fn test_benchseed_cli_tpcds_csv_rejects_unsafe_ascii_delimiter() {
     cargo_bin_cmd!("benchseed-cli")
         .arg("tpcds")
         .arg("csv")
         .arg("--delimiter")
         .arg("_")
-        .arg("--scale-factor")
-        .arg("1")
-        .arg("--tables")
-        .arg("reason")
-        .arg("--output-dir")
-        .arg(temp_dir.path())
         .assert()
-        .success();
-
-    let contents =
-        fs::read_to_string(temp_dir.path().join("reason.csv")).expect("Failed to read CSV file");
-    let first_line = contents.lines().next().expect("CSV output is empty");
-    let second_line = contents.lines().nth(1).expect("CSV data row is missing");
-    assert_eq!(
-        first_line,
-        "\"r_reason_sk\"_\"r_reason_id\"_\"r_reason_description\""
-    );
-    assert_eq!(
-        second_line.split('_').count(),
-        3,
-        "Expected underscore-delimited data rows to have three fields: {second_line}"
-    );
+        .failure()
+        .stderr(predicates::str::contains("supported delimiters"));
 }
 
 /// Test that default CSV output options generate every main TPC-DS output file.
