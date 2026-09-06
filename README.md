@@ -8,52 +8,53 @@
 [actions-badge]: https://github.com/Arnavsharma2/benchseed/actions/workflows/rust.yml/badge.svg
 [actions-url]: https://github.com/Arnavsharma2/benchseed/actions?query=branch%3Amain
 
-Fast, deterministic [TPC-H] and [TPC-DS] benchmark data generation in Rust.
+Generate deterministic [TPC-H] and [TPC-DS] datasets in Rust, with CSV, Parquet, and Apache Arrow output for testing data systems.
+
+Built on [tpchgen-rs](https://github.com/clflushopt/tpchgen-rs). This repository focuses on safer CSV output and allocation/coordination overhead in the generation pipeline. See [NOTICE](NOTICE) for the source snapshot and attribution.
+
+[Quick start](#quick-start) · [My contributions](#my-contributions) · [Architecture](ARCHITECTURE.md) · [Testing](TESTING.md)
 
 [TPC-H]: https://www.tpc.org/tpch/
 [TPC-DS]: https://www.tpc.org/tpcds/
 
-## Features
+## My contributions
 
-1. High-throughput TPC-H and TPC-DS generation
-2. Deterministic, conformance-tested output
-3. Parallel, streaming execution with bounded memory usage
+- **Safer CSV output:** shared delimiter validation across both CLIs and rejected characters that can corrupt unquoted table output, with regression coverage. This follows the proposed contract in [upstream issue #381](https://github.com/clflushopt/tpchgen-rs/issues/381). [Implementation](https://github.com/Arnavsharma2/benchseed/commit/71b7c78759a071a992c99db97b3929a8be5a07c2)
+- **Lower allocation overhead:** parsed distribution records without temporary vectors and scanned text-generation grammar as ASCII bytes. [Changes](https://github.com/Arnavsharma2/benchseed/commits/main/)
+- **Less coordination work:** batched TPC-DS progress updates, reused command metadata, and shortened buffer-recycler lock hold time. [Changes](https://github.com/Arnavsharma2/benchseed/commits/main/)
 
-## Try it now
+The generator foundation, conformance suite, and benchmark results below are inherited from tpchgen-rs. No new end-to-end throughput gain is claimed for these changes.
 
-Try with `uvx`:
+## Quick start
 
-```shell
-uvx benchseed-cli tpch parquet -s 1 --output-dir /tmp/tpch
+Build from this repository using [Rust and Cargo](https://www.rust-lang.org/tools/install). The toolchain is pinned in [rust-toolchain.toml](rust-toolchain.toml).
+
+```sh
+git clone https://github.com/Arnavsharma2/benchseed.git
+cd benchseed
+cargo build --release -p benchseed-cli
+./target/release/benchseed-cli tpch parquet -s 1 --output-dir /tmp/benchseed-tpch
 ```
 
-Install with `pip`:
+Generate TPC-DS CSV instead:
 
-```shell
-python -m pip install benchseed-cli
+```sh
+./target/release/benchseed-cli tpcds csv -s 1 --output-dir /tmp/benchseed-tpcds
 ```
 
-Then generate TPC-H data:
+CSV supports comma, pipe, tab (`\t`), and semicolon delimiters. Other delimiters are rejected because generated fields are not quoted. See the [CLI examples](benchseed-cli/README.md#examples) for table selection and partitioning.
 
-```shell
-benchseed-cli tpch parquet -s 1 --output-dir /tmp/tpch
-```
-
-`benchseed-cli` is the unified command-line program distributed as a Python
-package. See its [README](benchseed-cli/README.md) for more examples.
+The workspace includes dependency-free TPC-H generation, Arrow adapters, and parallel streaming CLIs. See [Crates](#crates) to embed a generator in your own Rust application.
 
 ## Performance
 
-The inherited benchmark suite records the TPC-H generator as more than 10x
-faster than the next fastest generator tested. On a 2023 Mac M3 Max laptop, it
-easily generates data faster than can be written to SSD. See
-[BENCHMARKS.md](./benchmarks/BENCHMARKS.md) for methodology and details.
+The following results were measured by the upstream tpchgen-rs project. They describe its benchmark workload and hardware, not a measured gain from BenchSeed-specific changes. See [BENCHMARKS.md](./benchmarks/BENCHMARKS.md) for methodology and details.
 
-Times to create TPC-H tables in Parquet format using `benchseed-tpch-cli` and
+Times to create TPC-H tables in Parquet format using the upstream generator and
 DuckDB for various scale factors. These measurements were inherited from the
 [upstream benchmark suite](https://github.com/clflushopt/tpchgen-rs/tree/7e64184d25648ffa8db4575bc683a24d23f60297/benchmarks).
 
-| Scale Factor | `benchseed-tpch-cli` | DuckDB     | DuckDB (proprietary) |
+| Scale Factor | Upstream generator | DuckDB     | DuckDB (proprietary) |
 | ------------ | ------------- | ---------- | -------------------- |
 | 1            | `0:02.24`     | `0:12.29`  | `0:10.68`            |
 | 10           | `0:09.97`     | `1:46.80`  | `1:41.14`            |
@@ -73,10 +74,11 @@ official distribution.
 
 ## Testing
 
-This crate has extensive tests to ensure correctness and produces exactly the
-same, byte-for-byte output as the original [`dbgen`] implementation. We compare
-the output of this crate with [`dbgen`] as part of every checkin. See
-[TESTING.md](TESTING.md) for more details on testing methodology
+```sh
+cargo test --workspace
+```
+
+The inherited conformance tests compare generated output with reference data from [`dbgen`] and the TPC tools. Additional CLI tests cover supported and rejected delimiters. See [TESTING.md](TESTING.md) for methodology and the reference-tool requirements for the full comparison suite.
 
 ## Crates
 
